@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
+    header('Location: index.php');
+}
+?>
 <?php require 'template/header.php'; ?>
 <?php
 require "config.php";
@@ -33,7 +39,7 @@ if (isset($_POST['register'])) {
     <div class="form">
 
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-            <h3>Register- Signup</h3>
+            <h3>Register</h3>
             <div class="form-item">
                 <img class="userimage" src="img/avatar.png" alt="avatar">
             </div>

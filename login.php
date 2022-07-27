@@ -1,5 +1,8 @@
 <?php 
 session_start();
+if(isset($_SESSION['id']) && isset($_SESSION['name'])){
+    header('Location: index.php');
+}
 require "template/header.php"; ?>
 <?php
 require "config.php";
