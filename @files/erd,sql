@@ -1,0 +1,9 @@
+CREATE TABLE users(
+    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(225),
+    dob date,
+    phone int(11),
+    email varchar(225),
+    address varchar(225),
+    password varchar(225)
+);
