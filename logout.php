@@ -1,11 +1,12 @@
 <?php 
+/**
+ * Logout
+ * 
+ * @description: Logout User
+ */
+session_start();    //Enable Session
+session_unset();    //Clear Session
+session_destroy();  // Destroy Session
 
-session_start();
-
-session_unset();
-
-session_destroy();
-
-header('Location: login.php');
-
+header('Location: login.php');  // Redirect to Login
 ?>

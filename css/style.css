@@ -1,16 +1,33 @@
+/**
+ * @Author: Deepak Kuwor
+ * @Dated: 27th July, 2022
+ *
+ * @description: Custom CSS for Project
+ */
+
+ 
+/* Import Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
+
+/* Resetting Stylesheet */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
 body {
     background-color: #041739e0;
 }
 
+
+
+
+/**
+ * Common CSS
+ */
+/* Container */
 .container {
     display: flex;
     justify-content: center;
@@ -19,6 +36,8 @@ body {
     height: 100vh;
 }
 
+
+/* Form */
 div .form {
     position: relative;
     display: flex;
@@ -31,13 +50,10 @@ div .form {
     box-shadow: 5px 5px 70px;
     background-color: #44536cca
 }
-
-
 form h3 {
     text-align: center;
     color: white;
 }
-
 form div .input {
     width: 250px;
     height: 45px;
@@ -47,24 +63,26 @@ form div .input {
     border-radius: 3px;
     font-size: 1em;
 }
-
 form div .input:focus {
     border: 3px solid #2e2d2d;
 }
-
 div .form-item {
     margin: 10px;
     color: white;
     text-align: center;
 }
-
 div .form-item a {
     text-decoration: none;
     font-weight: 900;
     color: white;
     cursor: pointer;
 }
+form .login {
+    text-align: center;
+}
 
+
+/* Button */
 .btn {
     width: 250px;
     height: 45px;
@@ -74,24 +92,21 @@ div .form-item a {
     background-color: #1d2532;
     color: white;
 }
-
 .btn:hover {
     background-color: #8ca2c8;
     color: black;
 }
 
-form .login {
-    text-align: center;
-}
 
+/* Avatar */
 div .userimage {
-
     width: 60px;
     border-radius: 50%;
     height: 60px;
-
 }
 
+
+/* Navigation */
 header.header nav.dashboard_header {
     display: flex;
     justify-content: space-around;
@@ -100,7 +115,6 @@ header.header nav.dashboard_header {
     width: 100%;
     background-color: white;
 }
-
 header.header nav.dashboard_header a {
     text-decoration: none;
     padding: 0.4em;
@@ -109,14 +123,13 @@ header.header nav.dashboard_header a {
     background-color: red;
     color: white;
 }
-
 header.header nav.dashboard_header a:hover {
     background-color: rgb(19, 19, 19);
     color:white;
     
 }
 
-
+/* Server Response */
 #success-response{
     background-color: green !important;
     font-weight: 800;
@@ -128,8 +141,12 @@ header.header nav.dashboard_header a:hover {
     border-radius: 5px;
 }
 
-/* dashboard css */
 
+
+
+/**
+ * Dashboard Page 
+ */
 header.dashboard_header{
     display: flex;
     justify-content: space-around;
@@ -137,7 +154,6 @@ header.dashboard_header{
     height: 3.5em;
     background-color: white;
 }
-
 header.dashboard_header a.btn-danger{
     border: none;
     background-color: red;
@@ -146,7 +162,6 @@ header.dashboard_header a.btn-danger{
     text-decoration: none;
     font-weight: bold;
 }
-
 header.dashboard_header a.btn-danger:hover{
     background-color: #9d0909
 

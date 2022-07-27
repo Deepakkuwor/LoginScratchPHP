@@ -1,12 +1,24 @@
 <?php
-session_start();
+session_start(); //Enable Session
+
+//If Session Exists: Redirect to landing (index.php)
 if (isset($_SESSION['id']) && isset($_SESSION['name'])) {
     header('Location: index.php');
 }
-?>
-<?php require 'template/header.php'; ?>
-<?php
-require "config.php";
+
+require 'template/header.php'; //Render Header Template
+require "config.php";  // Load Configuration
+
+/**
+ * Register
+ * 
+ * @description:
+ * Check if the register is requested,
+ *      -True: Prompt users success
+ *      -False: Display Error
+ * @param:
+ *      register - variabel / event
+ */
 
 $register = new Register();
 $showSuccess = false;
@@ -36,8 +48,8 @@ if (isset($_POST['register'])) {
 ?>
 
 <div class="container">
+    <!-- Register Form -->
     <div class="form">
-
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <h3>Register</h3>
             <div class="form-item">
@@ -61,13 +73,16 @@ if (isset($_POST['register'])) {
             <div class="form-item">
                 <input class="input" type="password" name="password" placeholder="Enter password">
             </div>
-
+            <!-- Success Section -->
             <?php if ($showSuccess) { ?>
                 <div class="form-item" id="success-response"><?php echo $response['MSG']; ?></div>
             <?php } ?>
+            <!-- ./Success Section -->
+            <!-- Error Section -->
             <?php if ($showError) { ?>
                 <div class="form-item" id="error-response"><?php echo $response['MSG']; ?></div>
             <?php } ?>
+            <!-- ./Error Section -->
 
 
             <div class="form-item">
@@ -77,11 +92,8 @@ if (isset($_POST['register'])) {
                 <small>Already have an account? <a href="login.php">Log in</a></small>
             </div>
         </form>
-
     </div>
+    <!-- Register Form -->
 </div>
-
-
-
 
 <?php require 'template/footer.php'; ?>

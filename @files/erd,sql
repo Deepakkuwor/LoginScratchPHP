@@ -1,3 +1,6 @@
+-- Database: stlogin
+
+-- Table: users
 CREATE TABLE users(
     id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name varchar(225),

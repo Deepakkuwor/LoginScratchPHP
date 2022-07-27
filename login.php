@@ -1,15 +1,29 @@
 <?php 
-session_start();
+session_start();    //Enable Session
+
+//If Session Exists: Redirect to landing (index.php)
 if(isset($_SESSION['id']) && isset($_SESSION['name'])){
     header('Location: index.php');
 }
-require "template/header.php"; ?>
-<?php
-require "config.php";
 
+
+require "template/header.php"; //   Render Header Template
+require "config.php";   // Load Configuration
+
+
+/**
+ * Login
+ * 
+ * @description:
+ * Check if the login is requested,
+ *      - True: Start Session
+ *      - False: Display Error
+ * 
+ * @param:
+ *      login  - variable / event
+ */
 $login = new Login();
 $showError = false;
-
 if (isset($_POST['login'])) {
     $phone = $_POST['phone'];
     $password =  $_POST['password'];
@@ -26,8 +40,8 @@ if (isset($_POST['login'])) {
 
 ?>
 <div class="container">
+    <!-- Login Form -->
     <div class="form">
-
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <h3>Login</h3>
             <div class="form-item">
@@ -39,10 +53,11 @@ if (isset($_POST['login'])) {
             <div class="form-item">
                 <input class="input" type="password" name="password" placeholder="Enter password">
             </div>
+            <!-- Error Section -->
             <?php if ($showError) { ?>
                 <div class="form-item" id="error-response"><?php echo $response['MSG']; ?></div>
             <?php } ?>
-
+            <!--./Error Section-->
             <div class="form-item">
                 <button type="submit" name="login" class="btn">Log in</button>
             </div>
@@ -51,6 +66,7 @@ if (isset($_POST['login'])) {
             </div>
         </form>
     </div>
+    <!--./Login Form-->
 </div>
 
 <?php require "template/footer.php"; ?>

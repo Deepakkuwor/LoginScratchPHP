@@ -1,7 +1,12 @@
 <?php
-
+/**
+ * Class: Connection
+ * 
+ * @description: MySQL Connector
+ */
 class Connection
 {
+    //Class Public Variable
     public $hostname = 'localhost';
     public $username = 'root';
     public $password = '';
@@ -10,6 +15,7 @@ class Connection
     public $R = array();
 
 
+    //Constructor to connect to MySQL Database
     function __construct()
     {
         $this->conn = mysqli_connect($this->hostname, $this->username, $this->password, $this->database);
@@ -17,55 +23,96 @@ class Connection
     }
 }
 
+
+
+/**
+ * Class: Register
+ * 
+ * @description: User Registration
+ */
 class Register extends Connection
 {
+    /**
+     * Registration
+     * 
+     * @description: User Registration
+     * @param:
+     *  $name: String
+     *  $dob: Date
+     *  $phone: Integer
+     *  $email: String
+     *  $address: String
+     *  $password: String
+     */
     public function registration($name, $dob, $phone, $email, $address, $password)
     {
+        //Check: If Empty?
+        //Note: Not focusing on extra Validation for Demo Work!!
         if ($name == "" || $dob == "" || $phone == "" || $email == "" || $address == "" || $password == "") {
             $this->R['ERR'] = true;
             $this->R['MSG'] = "All field are required!";
-            json_encode($this->R);
-            return $this->R;
+            goto REG_END;
         }
+
+        //Check: If Phone Number or Email is already registred?
         $password = md5($password);
         $existUser = 'SELECT * FROM users WHERE phone = "' . $phone . '" OR email = "' . $email . '"';
         $existRegistration = mysqli_query($this->conn, $existUser);
         if (mysqli_num_rows($existRegistration) > 0) {
             $this->R['ERR'] = true;
             $this->R['MSG'] = 'Email or phone already exist!';
-            json_encode($this->R);
-            return $this->R;
+            goto REG_END;
         }
 
+        //Check: Register User to Database
         $sql = 'INSERT INTO users (name, dob, phone, email, address, password) VALUES ("' . $name . '", "' . $dob . '", "' . $phone . '", "' . $email . '", "' . $address . '", "' . $password . '")';
         $result = mysqli_query($this->conn, $sql) or die('Query error');
         if ($result) {
             $this->R['ERR'] = false;
             $this->R['MSG'] = 'Account created successfully!';
-            json_encode($this->R);
-            return $this->R;
+            goto REG_END;
         }
+
+        //Send Server Response
+        REG_END:
+        json_encode($this->R);
+        return $this->R;
     }
 }
-
+/**
+ * Class: Login
+ * 
+ * @description: User Login
+ */
 class Login extends Connection
 {
+    /**
+     * Login
+     * 
+     * @description: User Login 
+     * @param:
+     * $phone: Integer
+     * $password: String
+     */
+
+     //Class public variable to store session
     public $id, $name;
     public function signin($phone, $password)
     {
+        //Check: If Empty?
+        //Note: Not focusing on extra Validation for Demo Work!!
         if ($phone == "" || $password == "") {
             $this->R['ERR'] = true;
             $this->R['MSG'] = 'Credentials is required';
-            json_encode($this->R);
-            return $this->R;
+            goto REG_END;
+
         }
 
         $password = md5($password);
 
         $sql = 'SELECT * FROM users WHERE phone = "' . $phone . '" AND password = "' . $password . '"';
-        var_dump($sql);
+        //Check: If user exist
         $result = mysqli_query($this->conn, $sql);
-        var_dump($result);
         if ($result) {
             if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_assoc($result);
@@ -73,19 +120,26 @@ class Login extends Connection
                 $this->name = $row['name'];
                 $this->R['ERR'] = false;
                 $this->R['MSG'] = 'Login successful!';
-                json_encode($this->R);
-                return $this->R;
+                goto REG_END;
+
             }
         } else {
             $this->R['ERR'] = true;
             $this->R['MSG'] = 'Invalid Credentials';
-            json_encode($this->R);
-            return $this->R;
+            goto REG_END;
+
         }
+
+        //Send Server Response
+        REG_END:
+        json_encode($this->R);
+        return $this->R;
     }
+    // Getting user id to create session
     public function getId(){
         return $this->id;
     }
+    // Getting user name to create session
     public function getName(){
         return $this->name;
     }
